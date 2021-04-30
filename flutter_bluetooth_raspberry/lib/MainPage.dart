@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bluetooth_raspberry/models/communication.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 import './SelectBondedDevicePage.dart';
@@ -59,6 +60,14 @@ class _MainPage extends State<MainPage> {
         _bluetoothState = state;
       });
     });
+  }
+
+  // This code is just a example if you need to change page and you need to communicate to the raspberry again
+  void init() async {
+    Communication com = Communication();
+    await com.connectBl(_address);
+    com.sendMessage("Hello");
+    setState(() {});
   }
 
   @override
