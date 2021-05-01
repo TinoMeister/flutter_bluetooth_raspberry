@@ -17,17 +17,18 @@ server_sock.listen(1)
 
 port = server_sock.getsockname()[1]
 
-print("Waiting for connection on RFCOMM channel %d" % port)
-client_sock, client_info = server_sock.accept()
+while True:
+   print("Waiting for connection on RFCOMM channel %d" % port)
+   client_sock, client_info = server_sock.accept()
 
-try:
-   while True:
-       data = client_sock.recv(1024)
-       if len(data) == 0: break
-       print("received [%s]" % data)
-       client_sock.send("tudo bem?\r\n")
-except IOError:
-   pass
+   try:
+      while True:
+         data = client_sock.recv(1024)
+         if len(data) == 0: break
+         print("received [%s]" % data)
+         client_sock.send("tudo bem?\r\n")
+   except IOError:
+      pass
 
 client_sock.close()
 server_sock.close()
